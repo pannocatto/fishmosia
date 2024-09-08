@@ -5,6 +5,7 @@ using Content.Shared.Item;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Storage.Components;
 using Content.Shared.Verbs;
+using JetBrains.Annotations;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -125,7 +126,23 @@ public sealed partial class DumpableSystem : EntitySystem
 
     private void OnDoAfter(EntityUid uid, DumpableComponent component, DumpableDoAfterEvent args)
     {
-        if (args.Handled || args.Cancelled || !TryComp<StorageComponent>(uid, out var storage) || storage.Container.ContainedEntities.Count == 0 || args.Args.Target is not { } target)
+		// Carpmosia-start - Rodentia port
+        if (args.Handled || args.Cancelled)
+            return;
+
+        DumpContents(uid, args.Args.Target, args.Args.User, component);
+    }
+
+    // DeltaV: Refactor to allow dumping that doesn't require a verb
+    [PublicAPI]
+    public void DumpContents(EntityUid uid, EntityUid? target, EntityUid user, DumpableComponent? component = null)
+    {
+        if (!TryComp<StorageComponent>(uid, out var storage)
+            || !Resolve(uid, ref component))
+            return;
+
+        if (storage.Container.ContainedEntities.Count == 0)
+		// Carpmosia-end - Rodentia port
             return;
 
         // TODO: Remove OrderBy when this issue is fixed in RT https://github.com/space-wizards/RobustToolbox/issues/6241
@@ -134,7 +151,29 @@ public sealed partial class DumpableSystem : EntitySystem
         var evt = new DumpEvent(dumpQueue, args.Args.User, false, false);
         RaiseLocalEvent(target, ref evt);
 
-        if (!evt.Handled)
+		// Carpmosia-start - Rodentia port
+        if (_disposalUnitSystem.HasDisposals(target))
+        {
+            dumped = true;
+
+            foreach (var entity in dumpQueue)
+            {
+                _disposalUnitSystem.DoInsertDisposalUnit(target.Value, entity, user);
+            }
+        }
+        else if (HasComp<PlaceableSurfaceComponent>(target))
+        {
+            dumped = true;
+
+            var (targetPos, targetRot) = _transformSystem.GetWorldPositionRotation(target.Value);
+
+            foreach (var entity in dumpQueue)
+            {
+                _transformSystem.SetWorldPositionRotation(entity, targetPos + _random.NextVector2Box() / 4, targetRot);
+            }
+        }
+        else
+		// Carpmosia-end - Rodentia port
         {
             var targetPos = _transformSystem.GetWorldPosition(uid);
 
@@ -150,7 +189,7 @@ public sealed partial class DumpableSystem : EntitySystem
 
         if (evt.PlaySound)
         {
-            _audio.PlayPredicted(component.DumpSound, uid, args.User);
+            _audio.PlayPredicted(component.DumpSound, uid, user);
         }
     }
 }

@@ -97,6 +97,7 @@
   - type: RatKing
     hungerPerArmyUse: 25
     hungerPerDomainUse: 50
+  - type: Rummager # DeltaV: Make rummaging a generic component
   - type: MobsterAccent
   - type: Speech
     speechVerb: SmallMob
@@ -293,10 +294,17 @@
     children:
     - id: RandomSpawner100
       weight: 66
-    - id: FoodCheese
-      weight: 28
-    - id: IngotGold1
+    # Carpmosia-start - Rodentia-port
+    # Rebalanced the loot table for rodentia
+    - id: FoodCheeseSlice
+      weight: 15
+    - id: RandomSnacks
+      weight: 10
+    - id: RandomFoodSingle 
       weight: 5
+    #- id: IngotGold1
+    #  weight: 5
+    # Carpmosia-end - Rodentia-port
 
 - type: entity
   parent: BaseAction
