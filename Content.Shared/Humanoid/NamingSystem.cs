@@ -42,6 +42,11 @@ namespace Content.Shared.Humanoid
                     return Loc.GetString("namepreset-firstfirst",
                         ("first1", GetFirstName(speciesProto)), ("first2", GetFirstName(speciesProto, gender).ToLower()));
                 // Carpmosia-end - Tajaran naming
+                // Carpmosia-start - Rodentia port
+                case SpeciesNaming.LastFirst: // DeltaV: Rodentia name scheme
+                    return Loc.GetString("namepreset-lastfirst",
+                        ("last", GetLastName(speciesProto)), ("first", GetFirstName(speciesProto, gender)));
+                // Carpmosia-end - Rodentia port
                 case SpeciesNaming.FirstLast:
                 default:
                     return Loc.GetString("namepreset-firstlast",
