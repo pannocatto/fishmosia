@@ -7,6 +7,7 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Standing;
 using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;
+using Content.Shared.Damage.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 
@@ -25,7 +26,7 @@ public abstract class SharedMouthStorageSystem : EntitySystem
         SubscribeLocalEvent<MouthStorageComponent, MapInitEvent>(OnMouthStorageInit);
         SubscribeLocalEvent<MouthStorageComponent, DownedEvent>(DropAllContents);
         SubscribeLocalEvent<MouthStorageComponent, DisarmedEvent>(DropAllContents);
-        SubscribeLocalEvent<MouthStorageComponent, DamageChangedEvent>(OnDamageModified);
+        SubscribeLocalEvent<MouthStorageComponent, DamageDealtEvent>(OnDamageModified);
         SubscribeLocalEvent<MouthStorageComponent, ExaminedEvent>(OnExamined);
     }
 
