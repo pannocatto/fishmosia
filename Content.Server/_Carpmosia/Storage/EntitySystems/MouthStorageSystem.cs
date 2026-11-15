@@ -1,11 +1,10 @@
-using Content.Server.Nutrition;
-using Content.Server.Speech;
-using Content.Server.Speech.EntitySystems;
-using Content.Shared.CD.Storage.Components;
-using Content.Shared.CD.Storage.EntitySystems;
+using Content.Shared.Nutrition;
+using Content.Shared.Speech;
+using Content.Shared.Speech.EntitySystems;
+using Content.Shared.Carpmosia.Species;
 using Content.Shared.Storage;
 
-namespace Content.Server.CD.Storage.EntitySystems;
+namespace Content.Server.Carpmosia.Storage.EntitySystems;
 
 public sealed class MouthStorageSystem : SharedMouthStorageSystem
 {
@@ -36,6 +35,6 @@ public sealed class MouthStorageSystem : SharedMouthStorageSystem
 
         var firstItem = storage.Container.ContainedEntities[0];
         args.Blocker = firstItem;
-        args.Cancel();
+        args.Cancelled = true;
     }
 }

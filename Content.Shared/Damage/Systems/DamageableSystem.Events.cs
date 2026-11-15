@@ -355,3 +355,4 @@ public sealed class DamageChangedEvent : EntityEventArgs
         InterruptsDoAfters = interruptsDoAfters && DamageIncreased;
     }
 }
+

@@ -131,11 +131,17 @@
   - type: TypingIndicator
     proto: rodentia
   - type: Vocal
-    emoteSounds: CDMaleRodentia
+    emoteSounds: MaleRodentia
   - type: MouthStorage
     mouthProto: CheekStorage
     openStorageAction: ActionOpenMouthStorage
     spitDamageThreshold: 3
+
+- type: entity
+  save: false
+  name: Urist McRat
+  parent: BaseMobRodentia
+  id: MobRodentia
 
 - type: entity
   parent: OrganBase
