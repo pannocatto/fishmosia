@@ -1,9 +1,9 @@
-using Content.Shared.DeltaV.Abilities;
+using Content.Shared.Carpmosia.Abilities;
 using Content.Shared.Popups;
 using Robust.Client.GameObjects;
 using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
 
-namespace Content.Client.DeltaV.Abilities;
+namespace Content.Client.Carpmosia.Abilities;
 
 public sealed partial class HideUnderTableAbilitySystem : SharedCrawlUnderObjectsSystem
 {

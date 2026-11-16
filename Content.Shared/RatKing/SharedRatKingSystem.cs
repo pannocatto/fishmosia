@@ -105,12 +105,13 @@ public abstract partial class SharedRatKingSystem : EntitySystem
         _action.StartUseDelay(component.ActionOrderLooseEntity);
     }
 
+	// Carpmosia-start - Rodentia Port
     private void OnGetVerb(EntityUid uid, RatKingRummageableComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
         if (!HasComp<RummagerComponent>(args.User)
             || component.Looted
             || _gameTiming.CurTime < component.LastLooted + component.RummageCooldown)
-            // DeltaV - Use RummagerComponent instead of RatKingComponent
+            // Use RummagerComponent instead of RatKingComponent
             // (This is so we can give Rodentia rummage abilities)
             // Additionally, adds a cooldown check
             return;
@@ -135,7 +136,7 @@ public abstract partial class SharedRatKingSystem : EntitySystem
 
     private void OnDoAfterComplete(EntityUid uid, RatKingRummageableComponent component, RatKingRummageDoAfterEvent args)
     {
-        // DeltaV - Rummaging an object updates the looting cooldown rather than a "previously looted" check.
+        // Rummaging an object updates the looting cooldown rather than a "previously looted" check.
         // Note that the "Looted" boolean can still be checked (by mappers/admins) 
         // to disable rummaging on the object indefinitely, but rummaging will no
         // longer permanently prevent future rummaging.
@@ -146,7 +147,6 @@ public abstract partial class SharedRatKingSystem : EntitySystem
             return;
 
         component.LastLooted = time;
-        // End DeltaV change
         Dirty(uid, component);
         _audio.PlayPredicted(component.Sound, uid, args.User);
 
@@ -154,6 +154,7 @@ public abstract partial class SharedRatKingSystem : EntitySystem
         if (_net.IsServer)
             Spawn(spawn, Transform(uid).Coordinates);
     }
+    // Carpmosia-end - Rodentia port
 
     public void UpdateAllServants(EntityUid uid, RatKingComponent component)
     {

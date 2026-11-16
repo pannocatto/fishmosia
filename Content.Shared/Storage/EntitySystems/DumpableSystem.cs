@@ -133,7 +133,7 @@ public sealed partial class DumpableSystem : EntitySystem
         DumpContents(uid, args.Args.Target, args.Args.User, component);
     }
 
-    // DeltaV: Refactor to allow dumping that doesn't require a verb
+    // Refactor to allow dumping that doesn't require a verb
     [PublicAPI]
     public void DumpContents(EntityUid uid, EntityUid? target, EntityUid user, DumpableComponent? component = null)
     {

@@ -19,18 +19,20 @@ public sealed partial class RummageableComponent : Component
     [AutoNetworkedField]
     public bool Looted;
 
+	// Carpmosia-start - Rodentia port
     /// <summary>
-    /// DeltaV: Last time the object was looted, used to check if cooldown has expired
+    /// Last time the object was looted, used to check if cooldown has expired
     /// </summary>
     [ViewVariables]
     public TimeSpan? LastLooted;
 
     /// <summary>
-    /// DeltaV: Minimum time between rummage attempts
+    /// Minimum time between rummage attempts
     /// </summary>
     [DataField("rummageCooldown"), ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
     public TimeSpan RummageCooldown = TimeSpan.FromMinutes(5);
+    // Carpmosia-end - Rodentia port
 
     /// <summary>
     /// How long it takes to rummage through a rummageable container.
