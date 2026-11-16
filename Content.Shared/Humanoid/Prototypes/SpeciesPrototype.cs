@@ -126,5 +126,5 @@ public enum SpeciesNaming : byte
     FirstDashFirst,
     FirstFirst, // Carpmosia-edit - Tajaran naming
     TheFirstofLast,
-    LastFirst, // CD addition
+    LastFirst, // Carpmosia-edit - Rodentia port
 }

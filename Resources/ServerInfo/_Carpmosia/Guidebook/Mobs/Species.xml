@@ -13,9 +13,10 @@
   <GuideEntityEmbed Entity="AppearanceHuman" Caption="Human"/>
   <GuideEntityEmbed Entity="AppearanceMoth" Caption="Moth"/>
   <GuideEntityEmbed Entity="AppearanceReptilian" Caption="Reptilian"/>
-  <GuideEntityEmbed Entity="AppearanceSlimePerson" Caption="Slime"/>
+  <GuideEntityEmbed Entity="MobRodentia" Caption="Rodentia"/>
   </Box>
   <Box>
+  <GuideEntityEmbed Entity="AppearanceSlimePerson" Caption="Slime"/>
   <GuideEntityEmbed Entity="AppearanceTajaran" Caption="Tajaran"/>
   <GuideEntityEmbed Entity="AppearanceVox" Caption="Vox"/>
   <GuideEntityEmbed Entity="AppearanceVulpkanin" Caption="Vulpkanin"/>
