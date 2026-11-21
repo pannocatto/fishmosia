@@ -126,54 +126,34 @@ public sealed partial class DumpableSystem : EntitySystem
 
     private void OnDoAfter(EntityUid uid, DumpableComponent component, DumpableDoAfterEvent args)
     {
-		// Carpmosia-start - Rodentia port
         if (args.Handled || args.Cancelled)
             return;
 
         DumpContents(uid, args.Args.Target, args.Args.User, component);
+        // CD: Split OnAfterInteract into two methods to allow dumping that doesn't require a verb, which is required
+        // for the functionality of Rodentia mouth storage being spilled when damaged. See DumpContents.
     }
 
-    // Refactor to allow dumping that doesn't require a verb
     [PublicAPI]
     public void DumpContents(EntityUid uid, EntityUid? target, EntityUid user, DumpableComponent? component = null)
     {
+        // CD: Split OnAfterInteract into two methods to allow dumping that doesn't require a verb, which is required
+        // for the functionality of Rodentia mouth storage being spilled when damaged.
         if (!TryComp<StorageComponent>(uid, out var storage)
             || !Resolve(uid, ref component))
             return;
 
         if (storage.Container.ContainedEntities.Count == 0)
-		// Carpmosia-end - Rodentia port
             return;
 
         // TODO: Remove OrderBy when this issue is fixed in RT https://github.com/space-wizards/RobustToolbox/issues/6241
         var dumpQueue = new Queue<EntityUid>(storage.Container.ContainedEntities.OrderBy(e => GetNetEntity(e)));
 
-        var evt = new DumpEvent(dumpQueue, args.Args.User, false, false);
-        RaiseLocalEvent(target, ref evt);
+        var evt = new DumpEvent(dumpQueue, user, false, false);
+        if (target.HasValue)
+            RaiseLocalEvent(target.Value, ref evt);
 
-		// Carpmosia-start - Rodentia port
-        if (_disposalUnitSystem.HasDisposals(target))
-        {
-            dumped = true;
-
-            foreach (var entity in dumpQueue)
-            {
-                _disposalUnitSystem.DoInsertDisposalUnit(target.Value, entity, user);
-            }
-        }
-        else if (HasComp<PlaceableSurfaceComponent>(target))
-        {
-            dumped = true;
-
-            var (targetPos, targetRot) = _transformSystem.GetWorldPositionRotation(target.Value);
-
-            foreach (var entity in dumpQueue)
-            {
-                _transformSystem.SetWorldPositionRotation(entity, targetPos + _random.NextVector2Box() / 4, targetRot);
-            }
-        }
-        else
-		// Carpmosia-end - Rodentia port
+        if (!evt.Handled)
         {
             var targetPos = _transformSystem.GetWorldPosition(uid);
 

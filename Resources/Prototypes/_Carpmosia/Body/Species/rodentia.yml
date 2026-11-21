@@ -76,15 +76,14 @@
   - AppearanceRodentia
   - BaseSpeciesMobOrganic
   id: MobRodentia
-  name: Urist McRat
+  name: Urist McCheese
   components:
-  - type: Hunger
   - type: Speech
     speechVerb: Rodentia
     speechSounds: Squeak
     allowedEmotes: ['Squeak']
   - type: Icon
-    sprite: _DV/Mobs/Species/Rodentia/parts.rsi
+    sprite: _Carpmosia/Mobs/Species/Rodentia/parts.rsi
     state: full
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
@@ -122,20 +121,15 @@
       Unsexed: MaleRodentia
   - type: Rummager
   - type: AlwaysTriggerMousetrap
-  - type: PseudoItem
-    storedOffset: -10,0
-    shape:
-    - 0, 0, 3, 2
-    - 0, 2, 5, 4
   - type: MouthStorage
     mouthProto: CheekStorage
     openStorageAction: ActionOpenMouthStorage
     spitDamageThreshold: 3
   - type: CrawlUnderObjects
     actionProto: ActionToggleSneakMode
-  - type: DrawDepthVisualizer
-    key: enum.SneakingVisuals.Sneaking
-    depth: SmallMobs
+#  - type: DrawDepthVisualizer
+#    key: enum.SneakingVisuals.Sneaking
+#    depth: SmallMobs
 
 - type: entity
   parent: OrganBase
@@ -149,10 +143,10 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: _DV/Mobs/Species/Rodentia/parts.rsi
+    sprite: _Carpmosia/Mobs/Species/Rodentia/parts.rsi
   - type: VisualOrgan
     data:
-      sprite: _DV/Mobs/Species/Rodentia/parts.rsi
+      sprite: _Carpmosia/Mobs/Species/Rodentia/parts.rsi
   - type: VisualOrganMarkings
     markingData:
       group: Rodentia

@@ -1,15 +1,15 @@
-using Content.Server.Nutrition;
-using Content.Server.Speech;
-using Content.Server.Speech.EntitySystems;
 using Content.Shared.Carpmosia.Storage.Components;
 using Content.Shared.Carpmosia.Storage.EntitySystems;
+using Content.Shared.Nutrition;
 using Content.Shared.Storage;
+using Content.Shared.Speech;
+using Content.Shared.Speech.EntitySystems;
 
 namespace Content.Server.Carpmosia.Storage.EntitySystems;
 
-public sealed class MouthStorageSystem : SharedMouthStorageSystem
+public sealed partial class MouthStorageSystem : SharedMouthStorageSystem
 {
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency] private ReplacementAccentSystem _replacement = default!;
     public override void Initialize()
     {
         base.Initialize();
@@ -36,6 +36,6 @@ public sealed class MouthStorageSystem : SharedMouthStorageSystem
 
         var firstItem = storage.Container.ContainedEntities[0];
         args.Blocker = firstItem;
-        args.Cancel();
+        args.Cancelled = true;
     }
 }

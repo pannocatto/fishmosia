@@ -1,23 +1,30 @@
 - type: entity
+  parent: BaseAction
   id: ActionOpenMouthStorage
   name: Open cheek storage
   description: Allows you to store items in your cheeks. 
   components:
-  - type: InstantAction
+  - type: Action
     itemIconStyle: BigAction
     priority: -10
-    icon: _Carpmosia/Interface/Actions/mouthStorageOpen.png
+  - type: Sprite
+    layers:
+    - texture: _Carpmosia/Interface/Actions/mouthStorageOpen.png
+  - type: InstantAction
     event: !type:OpenStorageImplantEvent
 
 - type: entity
+  parent: BaseAction
   id: ActionToggleSneakMode
   name: Toggle sneak mode
-  description: Sneak underneath tables. 
+  description: Sneak underneath tables.
   components:
-  - type: InstantAction
+  - type: Action
     itemIconStyle: BigAction
     useDelay: 3
-    icon:
-      sprite: Structures/Furniture/Tables/generic.rsi
-      state: full
+  - type: Sprite
+    sprite: Structures/Furniture/Tables/generic.rsi
+    layers:
+    - state: full
+  - type: InstantAction
     event: !type:ToggleCrawlingStateEvent

@@ -13,11 +13,11 @@ namespace Content.Server.Carpmosia.Abilities;
 
 public sealed partial class CrawlUnderObjectsSystem : SharedCrawlUnderObjectsSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movespeed = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private AppearanceSystem _appearance = default!;
+    [Dependency] private SharedActionsSystem _actionsSystem = default!;
+    [Dependency] private MovementSpeedModifierSystem _movespeed = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private TurfSystem _turf = default!;
 
     public override void Initialize()
     {
@@ -32,11 +32,10 @@ public sealed partial class CrawlUnderObjectsSystem : SharedCrawlUnderObjectsSys
     private bool IsOnCollidingTile(EntityUid uid)
     {
         var xform = Transform(uid);
-        var tile = xform.Coordinates.GetTileRef();
-        if (tile == null)
+        if (!_turf.TryGetTileRef(xform.Coordinates, out var tileRef))
             return false;
 
-        return _turf.IsTileBlocked(tile.Value, CollisionGroup.MobMask);
+        return _turf.IsTileBlocked(tileRef.Value, CollisionGroup.MobMask);
     }
 
     private void OnInit(EntityUid uid, CrawlUnderObjectsComponent component, ComponentInit args)

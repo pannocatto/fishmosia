@@ -97,7 +97,6 @@
   - type: RatKing
     hungerPerArmyUse: 25
     hungerPerDomainUse: 50
-  - type: Rummager # Carpmosia-edit - Rodentia port
   - type: Speech
     speechVerb: SmallMob
   - type: ToolRefinable
