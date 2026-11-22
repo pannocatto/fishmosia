@@ -382,7 +382,7 @@ public sealed partial class ServerGameTicker
             readyPlayerProfiles.Add(userId, profile);
         }
 
-        DebugTools.AssertEqual(readyPlayers.Count, ReadyPlayerCount());
+        //DebugTools.AssertEqual(readyPlayers.Count, ReadyPlayerCount()); // Carpmosia-edit - Dynamic player count
 
         // Just in case it hasn't been loaded previously we'll try loading it.
         LoadMaps();
